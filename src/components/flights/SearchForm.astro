@@ -1,0 +1,94 @@
+---
+const today = new Date().toISOString().split('T')[0];
+const tomorrow = new Date(Date.now() + 86400000).toISOString().split('T')[0];
+---
+
+<form action="/search" method="GET" class="search-form">
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+        <!-- Origen -->
+        <div class="form-group">
+            <label class="block text-sm font-medium text-gray-700 mb-1">
+                <i class="fas fa-plane-departure mr-1"></i> Origen
+            </label>
+            <input 
+                type="text" 
+                name="origin" 
+                placeholder="Ej: Caracas, CCS" 
+                class="input-field"
+                required
+            />
+        </div>
+        
+        <!-- Destino -->
+        <div class="form-group">
+            <label class="block text-sm font-medium text-gray-700 mb-1">
+                <i class="fas fa-plane-arrival mr-1"></i> Destino
+            </label>
+            <input 
+                type="text" 
+                name="destination" 
+                placeholder="Ej: Madrid, MAD" 
+                class="input-field"
+                required
+            />
+        </div>
+        
+        <!-- Fecha Ida -->
+        <div class="form-group">
+            <label class="block text-sm font-medium text-gray-700 mb-1">
+                <i class="far fa-calendar-alt mr-1"></i> Fecha Ida
+            </label>
+            <input 
+                type="date" 
+                name="departure" 
+                min={today}
+                value={today}
+                class="input-field"
+                required
+            />
+        </div>
+        
+        <!-- Pasajeros -->
+        <div class="form-group">
+            <label class="block text-sm font-medium text-gray-700 mb-1">
+                <i class="fas fa-users mr-1"></i> Pasajeros
+            </label>
+            <select name="passengers" class="input-field">
+                <option value="1">1 pasajero</option>
+                <option value="2">2 pasajeros</option>
+                <option value="3">3 pasajeros</option>
+                <option value="4">4 pasajeros</option>
+            </select>
+        </div>
+    </div>
+    
+    <!-- Submit Button -->
+    <div class="mt-6 text-center">
+        <button type="submit" class="btn-search">
+            <i class="fas fa-search mr-2"></i>
+            Buscar Vuelos
+        </button>
+        <button type="button" class="btn-secondary ml-4">
+            <i class="fas fa-filter mr-2"></i>
+            Filtros Avanzados
+        </button>
+    </div>
+</form>
+
+<style>
+    .input-field {
+        @apply w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent outline-none transition-all duration-200;
+    }
+    
+    .input-field:focus {
+        @apply shadow-lg;
+    }
+    
+    .btn-search {
+        @apply bg-linear-to-r from-primary-600 to-primary-700 hover:from-primary-700 hover:to-primary-800 text-white px-8 py-3 rounded-lg font-semibold text-lg transition-all duration-300 hover:shadow-xl transform hover:-translate-y-1 flex items-center justify-center mx-auto;
+    }
+    
+    .btn-secondary {
+        @apply bg-gray-200 hover:bg-gray-300 text-gray-800 px-6 py-3 rounded-lg font-medium transition-colors duration-200;
+    }
+</style>

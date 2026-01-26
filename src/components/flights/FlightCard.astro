@@ -1,0 +1,134 @@
+---
+interface Props {
+  airline: string;
+  airlineCode: string;
+  flightNumber: string;
+  origin: string;
+  destination: string;
+  departure: string;
+  arrival: string;
+  price: number;
+  stops: number;
+  duration: string;
+  rating: number;
+}
+
+const { 
+  airline, 
+  airlineCode, 
+  flightNumber, 
+  origin, 
+  destination, 
+  departure, 
+  arrival, 
+  price, 
+  stops, 
+  duration,
+  rating 
+} = Astro.props;
+
+const formatCurrency = (amount: number) => {
+  return new Intl.NumberFormat('es-VE', {
+    style: 'currency',
+    currency: 'USD'
+  }).format(amount);
+};
+
+const formatDate = (datetime: string) => {
+  return new Date(datetime).toLocaleTimeString('es-VE', {
+    hour: '2-digit',
+    minute: '2-digit'
+  });
+};
+---
+
+<div class="flight-card bg-white rounded-xl shadow-lg hover:shadow-2xl transition-all duration-300 overflow-hidden border border-gray-200">
+    <!-- Airline Header -->
+    <div class="bg-linear-to-r from-primary-50 to-primary-100 p-4 border-b">
+        <div class="flex justify-between items-center">
+            <div>
+                <h3 class="font-bold text-lg">{airline}</h3>
+                <p class="text-sm text-gray-600">{flightNumber} • {airlineCode}</p>
+            </div>
+            <div class="flex items-center">
+                <div class="text-yellow-400 mr-1">
+                    <i class="fas fa-star"></i>
+                </div>
+                <span class="font-semibold">{rating.toFixed(1)}</span>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Flight Details -->
+    <div class="p-5">
+        <!-- Route -->
+        <div class="flex items-center justify-between mb-6">
+            <div class="text-center">
+                <div class="font-bold text-xl">{origin.split(' ')[0]}</div>
+                <div class="text-sm text-gray-500">{formatDate(departure)}</div>
+                <div class="text-xs text-gray-400">{origin.split('(')[1]?.replace(')', '')}</div>
+            </div>
+            
+            <div class="grow mx-4">
+                <div class="relative">
+                    <div class="h-0.5 bg-gray-300"></div>
+                    <div class="absolute top-1/2 left-0 transform -translate-y-1/2 w-full flex justify-between">
+                        <div class="w-3 h-3 rounded-full bg-primary-600"></div>
+                        <div class="flex items-center">
+                            <i class="fas fa-plane text-gray-400"></i>
+                        </div>
+                        <div class="w-3 h-3 rounded-full bg-primary-600"></div>
+                    </div>
+                </div>
+                <div class="text-center mt-2">
+                    <span class="text-sm text-gray-600">{duration}</span>
+                    {stops > 0 && (
+                        <span class="text-xs bg-yellow-100 text-yellow-800 px-2 py-1 rounded-full ml-2">
+                            {stops} escala{stops > 1 ? 's' : ''}
+                        </span>
+                    )}
+                </div>
+            </div>
+            
+            <div class="text-center">
+                <div class="font-bold text-xl">{destination.split(' ')[0]}</div>
+                <div class="text-sm text-gray-500">{formatDate(arrival)}</div>
+                <div class="text-xs text-gray-400">{destination.split('(')[1]?.replace(')', '')}</div>
+            </div>
+        </div>
+        
+        <!-- Info Grid -->
+        <div class="grid grid-cols-2 gap-4 mb-6">
+            <div class="bg-gray-50 p-3 rounded-lg">
+                <div class="text-xs text-gray-500">Salida</div>
+                <div class="font-semibold">{new Date(departure).toLocaleDateString('es-VE')}</div>
+            </div>
+            <div class="bg-gray-50 p-3 rounded-lg">
+                <div class="text-xs text-gray-500">Duración</div>
+                <div class="font-semibold">{duration}</div>
+            </div>
+        </div>
+        
+        <!-- Price & Action -->
+        <div class="flex justify-between items-center pt-4 border-t">
+            <div>
+                <div class="text-sm text-gray-500">Precio por persona</div>
+                <div class="text-2xl font-bold text-primary-700">{formatCurrency(price)}</div>
+            </div>
+            <button class="btn-select">
+                <i class="fas fa-check-circle mr-2"></i>
+                Seleccionar
+            </button>
+        </div>
+    </div>
+</div>
+
+<style>
+    .flight-card:hover {
+        transform: translateY(-4px);
+    }
+    
+    .btn-select {
+        @apply bg-primary-600 hover:bg-primary-700 text-white px-5 py-2 rounded-lg font-medium transition-colors duration-200 flex items-center;
+    }
+</style>

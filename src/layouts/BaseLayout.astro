@@ -1,0 +1,158 @@
+---
+// Layout base con Tailwind
+interface Props {
+  title: string;
+  description?: string;
+}
+
+const { title, description = "Sistema de comparación de vuelos - Proyecto UNEFA 5to semestre" } = Astro.props;
+---
+
+<!DOCTYPE html>
+<html lang="es" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{title} | FlightCompare</title>
+    <meta name="description" content={description}>
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+    
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body class="font-sans bg-gray-50 text-gray-900 min-h-screen flex flex-col">
+    <!-- Header -->
+    <header class="sticky top-0 z-50 bg-white shadow-md">
+        <div class="container mx-auto px-4 py-3">
+            <div class="flex items-center justify-between">
+                <!-- Logo -->
+                <a href="/" class="flex items-center space-x-3">
+                    <div class="bg-primary-600 p-2 rounded-lg">
+                        <i class="fas fa-plane-departure text-white text-xl"></i>
+                    </div>
+                    <div>
+                        <h1 class="text-2xl font-bold bg-linear-to-r from-primary-600 to-primary-800 bg-clip-text text-transparent">
+                            FlightCompare
+                        </h1>
+                        <p class="text-xs text-gray-500">UNEFA - Ing. Sistemas</p>
+                    </div>
+                </a>
+
+                <!-- Navigation -->
+                <nav class="hidden md:flex items-center space-x-6">
+                    <a href="/" class="nav-link">
+                        <i class="fas fa-home mr-2"></i>Inicio
+                    </a>
+                    <a href="/search" class="nav-link">
+                        <i class="fas fa-search mr-2"></i>Buscar
+                    </a>
+                    <a href="/compare" class="nav-link">
+                        <i class="fas fa-exchange-alt mr-2"></i>Comparar
+                    </a>
+                    <a href="/about" class="nav-link">
+                        <i class="fas fa-info-circle mr-2"></i>Acerca
+                    </a>
+                </nav>
+
+                <!-- Admin Button -->
+                <a href="/admin" class="btn-primary">
+                    <i class="fas fa-cog mr-2"></i>Admin
+                </a>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="grow">
+        <slot />
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-gray-800 text-white mt-12">
+        <div class="container mx-auto px-4 py-8">
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <!-- Proyecto Info -->
+                <div>
+                    <h3 class="text-xl font-bold mb-4 flex items-center">
+                        <i class="fas fa-graduation-cap mr-2 text-unefa-gold"></i>
+                        Proyecto Académico
+                    </h3>
+                    <p class="text-gray-300">
+                        Sistema desarrollado como proyecto integrador del 5to semestre de Ingeniería en Sistemas, UNEFA.
+                    </p>
+                </div>
+
+                <!-- Materias -->
+                <div>
+                    <h4 class="font-semibold mb-4">Materias Integradas</h4>
+                    <ul class="space-y-2">
+                        <li class="flex items-center">
+                            <i class="fas fa-database mr-2 text-primary-400"></i>
+                            Bases de Datos
+                        </li>
+                        <li class="flex items-center">
+                            <i class="fas fa-project-diagram mr-2 text-primary-400"></i>
+                            Análisis de Sistemas
+                        </li>
+                        <li class="flex items-center">
+                            <i class="fas fa-code mr-2 text-primary-400"></i>
+                            Lenguaje de Programación
+                        </li>
+                    </ul>
+                </div>
+
+                <!-- Tecnologías -->
+                <div>
+                    <h4 class="font-semibold mb-4">Stack Tecnológico</h4>
+                    <div class="flex flex-wrap gap-2">
+                        <span class="bg-gray-700 px-3 py-1 rounded-full text-sm">Astro</span>
+                        <span class="bg-gray-700 px-3 py-1 rounded-full text-sm">Tailwind CSS</span>
+                        <span class="bg-gray-700 px-3 py-1 rounded-full text-sm">SQLite</span>
+                        <span class="bg-gray-700 px-3 py-1 rounded-full text-sm">JavaScript</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="border-t border-gray-700 mt-8 pt-6 text-center text-gray-400">
+                <p>© 2024 FlightCompare - Proyecto Universitario UNEFA. Fines educativos.</p>
+                <p class="text-sm mt-2">Versión 1.0.0 | 5to Semestre Ingeniería en Sistemas</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Custom CSS for components -->
+    <style>
+        .nav-link {
+            @apply text-gray-700 hover:text-primary-600 font-medium transition-colors duration-200 flex items-center;
+        }
+        
+        .nav-link.active {
+            @apply text-primary-600 font-semibold;
+        }
+        
+        .btn-primary {
+            @apply bg-primary-600 hover:bg-primary-700 text-white px-4 py-2 rounded-lg font-medium transition-all duration-200 hover:shadow-lg flex items-center;
+        }
+        
+        .btn-secondary {
+            @apply bg-gray-200 hover:bg-gray-300 text-gray-800 px-4 py-2 rounded-lg font-medium transition-colors duration-200;
+        }
+        
+        /* Custom animations */
+        .fade-in {
+            animation: fadeIn 0.5s ease-in-out;
+        }
+        
+        .slide-up {
+            animation: slideUp 0.3s ease-out;
+        }
+    </style>
+</body>
+</html>

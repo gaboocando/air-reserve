@@ -1,11 +1,153 @@
 ---
 import Welcome from '../components/Welcome.astro';
 import Layout from '../layouts/Layout.astro';
-
-// Welcome to Astro! Wondering what to do next? Check out the Astro documentation at https://docs.astro.build
-// Don't want to use any of this? Delete everything in this file, the `assets`, `components`, and `layouts` directories, and start fresh.
+import BaseLayout from '../layouts/BaseLayout.astro';
+import SearchForm from '../components/flights/SearchForm.astro';
+import FlightCard from '../components/flights/FlightCard.astro';
 ---
+
+<BaseLayout title="Inicio - Comparador de Vuelos">
+    <!-- Hero Section -->
+    <section class="relative bg-linear-to-br from-primary-50 to-primary-100 py-16 md:py-24">
+        <div class="container mx-auto px-4">
+            <div class="max-w-4xl mx-auto text-center">
+                <div class="inline-flex items-center space-x-2 bg-white/80 backdrop-blur-sm px-4 py-2 rounded-full mb-6">
+                    <span class="text-unefa-red font-bold">UNEFA</span>
+                    <span class="text-gray-600">|</span>
+                    <span class="text-gray-700">5to Semestre Ing. Sistemas</span>
+                </div>
+                
+                <h1 class="text-4xl md:text-5xl lg:text-6xl font-bold mb-6">
+                    Encuentra los 
+                    <span class="bg-linear-to-r from-primary-600 to-primary-800 bg-clip-text text-transparent">
+                        mejores vuelos
+                    </span>
+                    al mejor precio
+                </h1>
+                
+                <p class="text-xl text-gray-600 mb-10 max-w-2xl mx-auto">
+                    Sistema de comparación de vuelos desarrollado como proyecto integrador universitario. 
+                    Compara precios, horarios y aerolíneas en tiempo real.
+                </p>
+            </div>
+            
+            <!-- Search Form -->
+            <div class="max-w-4xl mx-auto bg-white rounded-2xl shadow-xl p-6 md:p-8 slide-up">
+                <h2 class="text-2xl font-bold mb-6 text-center">
+                    <i class="fas fa-search mr-2 text-primary-600"></i>
+                    Busca tu vuelo ideal
+                </h2>
+                <SearchForm />
+            </div>
+        </div>
+    </section>
+
+    <!-- Features Section -->
+    <section class="py-16 bg-white">
+        <div class="container mx-auto px-4">
+            <h2 class="text-3xl font-bold text-center mb-12">
+                Características del Sistema
+            </h2>
+            
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <!-- Feature 1 -->
+                <div class="bg-gray-50 p-6 rounded-xl border border-gray-200 hover:border-primary-300 transition-all duration-300">
+                    <div class="w-12 h-12 bg-primary-100 rounded-lg flex items-center justify-center mb-4">
+                        <i class="fas fa-bolt text-primary-600 text-xl"></i>
+                    </div>
+                    <h3 class="text-xl font-semibold mb-3">Búsqueda Rápida</h3>
+                    <p class="text-gray-600">
+                        Encuentra vuelos entre cientos de opciones en segundos. Filtra por precio, horario y aerolínea.
+                    </p>
+                </div>
+                
+                <!-- Feature 2 -->
+                <div class="bg-gray-50 p-6 rounded-xl border border-gray-200 hover:border-primary-300 transition-all duration-300">
+                    <div class="w-12 h-12 bg-primary-100 rounded-lg flex items-center justify-center mb-4">
+                        <i class="fas fa-chart-line text-primary-600 text-xl"></i>
+                    </div>
+                    <h3 class="text-xl font-semibold mb-3">Comparación Inteligente</h3>
+                    <p class="text-gray-600">
+                        Compara múltiples opciones lado a lado. Visualiza diferencias de precio, duración y escalas.
+                    </p>
+                </div>
+                
+                <!-- Feature 3 -->
+                <div class="bg-gray-50 p-6 rounded-xl border border-gray-200 hover:border-primary-300 transition-all duration-300">
+                    <div class="w-12 h-12 bg-primary-100 rounded-lg flex items-center justify-center mb-4">
+                        <i class="fas fa-shield-alt text-primary-600 text-xl"></i>
+                    </div>
+                    <h3 class="text-xl font-semibold mb-3">Base de Datos Local</h3>
+                    <p class="text-gray-600">
+                        Almacenamiento seguro con SQLite. Sin dependencias externas, todo funciona localmente.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Demo Flights -->
+    <section class="py-16 bg-gray-50">
+        <div class="container mx-auto px-4">
+            <div class="flex justify-between items-center mb-8">
+                <h2 class="text-3xl font-bold">Vuelos Destacados</h2>
+                <a href="/search" class="btn-primary">
+                    Ver todos los vuelos
+                    <i class="fas fa-arrow-right ml-2"></i>
+                </a>
+            </div>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                <!-- Flight Card 1 -->
+                <FlightCard 
+                    airline="Aeropostal"
+                    airlineCode="AL"
+                    flightNumber="AL202"
+                    origin="Caracas (CCS)"
+                    destination="Madrid (MAD)"
+                    departure="2024-06-15 08:00"
+                    arrival="2024-06-15 22:00"
+                    price={650}
+                    stops={1}
+                    duration="14h"
+                    rating={4.2}
+                />
+                
+                <!-- Flight Card 2 -->
+                <FlightCard 
+                    airline="Conviasa"
+                    airlineCode="VC"
+                    flightNumber="VC101"
+                    origin="Caracas (CCS)"
+                    destination="Bogotá (BOG)"
+                    departure="2024-06-10 10:30"
+                    arrival="2024-06-10 11:45"
+                    price={250}
+                    stops={0}
+                    duration="1h 15m"
+                    rating={4.0}
+                />
+                
+                <!-- Flight Card 3 -->
+                <FlightCard 
+                    airline="Avianca"
+                    airlineCode="AV"
+                    flightNumber="AV305"
+                    origin="Bogotá (BOG)"
+                    destination="Miami (MIA)"
+                    departure="2024-06-12 14:00"
+                    arrival="2024-06-12 18:30"
+                    price={450}
+                    stops={0}
+                    duration="4h 30m"
+                    rating={4.5}
+                />
+            </div>
+        </div>
+    </section>
+</BaseLayout>
 
 <Layout>
 	<Welcome />
+	---
 </Layout>
