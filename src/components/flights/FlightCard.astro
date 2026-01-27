@@ -13,18 +13,18 @@ interface Props {
   rating: number;
 }
 
-const { 
-  airline, 
-  airlineCode, 
-  flightNumber, 
-  origin, 
-  destination, 
-  departure, 
-  arrival, 
-  price, 
-  stops, 
+const {
+  airline,
+  airlineCode,
+  flightNumber,
+  origin,
+  destination,
+  departure,
+  arrival,
+  price,
+  stops,
   duration,
-  rating 
+  rating
 } = Astro.props;
 
 const formatCurrency = (amount: number) => {
@@ -42,7 +42,7 @@ const formatDate = (datetime: string) => {
 };
 ---
 
-<div class="flight-card bg-white rounded-xl shadow-lg hover:shadow-2xl transition-all duration-300 overflow-hidden border border-gray-200">
+<div class="hover:-translate-y-1 bg-white rounded-xl shadow-lg hover:shadow-2xl transition-all duration-300 overflow-hidden border border-gray-200">
     <!-- Airline Header -->
     <div class="bg-linear-to-r from-primary-50 to-primary-100 p-4 border-b">
         <div class="flex justify-between items-center">
@@ -58,7 +58,7 @@ const formatDate = (datetime: string) => {
             </div>
         </div>
     </div>
-    
+
     <!-- Flight Details -->
     <div class="p-5">
         <!-- Route -->
@@ -68,7 +68,7 @@ const formatDate = (datetime: string) => {
                 <div class="text-sm text-gray-500">{formatDate(departure)}</div>
                 <div class="text-xs text-gray-400">{origin.split('(')[1]?.replace(')', '')}</div>
             </div>
-            
+
             <div class="grow mx-4">
                 <div class="relative">
                     <div class="h-0.5 bg-gray-300"></div>
@@ -89,14 +89,14 @@ const formatDate = (datetime: string) => {
                     )}
                 </div>
             </div>
-            
+
             <div class="text-center">
                 <div class="font-bold text-xl">{destination.split(' ')[0]}</div>
                 <div class="text-sm text-gray-500">{formatDate(arrival)}</div>
                 <div class="text-xs text-gray-400">{destination.split('(')[1]?.replace(')', '')}</div>
             </div>
         </div>
-        
+
         <!-- Info Grid -->
         <div class="grid grid-cols-2 gap-4 mb-6">
             <div class="bg-gray-50 p-3 rounded-lg">
@@ -108,27 +108,17 @@ const formatDate = (datetime: string) => {
                 <div class="font-semibold">{duration}</div>
             </div>
         </div>
-        
+
         <!-- Price & Action -->
         <div class="flex justify-between items-center pt-4 border-t">
             <div>
                 <div class="text-sm text-gray-500">Precio por persona</div>
                 <div class="text-2xl font-bold text-primary-700">{formatCurrency(price)}</div>
             </div>
-            <button class="btn-select">
+            <button class="btn-primary">
                 <i class="fas fa-check-circle mr-2"></i>
                 Seleccionar
             </button>
         </div>
     </div>
 </div>
-
-<style>
-    .flight-card:hover {
-        transform: translateY(-4px);
-    }
-    
-    .btn-select {
-        @apply bg-primary-600 hover:bg-primary-700 text-white px-5 py-2 rounded-lg font-medium transition-colors duration-200 flex items-center;
-    }
-</style>
